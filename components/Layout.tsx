@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Tab } from '../types';
-import { LayoutDashboard, History, ClipboardCheck, Activity, Database } from 'lucide-react';
+import { LayoutDashboard, History, ClipboardCheck, Activity, Database, CheckSquare, Hand } from 'lucide-react';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -12,6 +12,8 @@ interface LayoutProps {
 const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const navItems = [
     { id: Tab.AUDIT, label: 'Round Audit', icon: ClipboardCheck },
+    { id: Tab.BUNDLE_AUDIT, label: 'Bundle Checks', icon: CheckSquare },
+    { id: Tab.HH_AUDIT, label: 'Hand Hygiene', icon: Hand },
     { id: Tab.MASTER_LIST, label: 'Official Records', icon: Database },
     { id: Tab.HISTORY, label: 'History', icon: History },
     { id: Tab.DASHBOARD, label: 'Dashboard', icon: LayoutDashboard },
@@ -20,10 +22,10 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
   return (
     <div className="min-h-screen flex flex-col md:flex-row bg-slate-50">
       {/* Sidebar - Desktop */}
-      <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-white p-6 sticky top-0 h-screen">
+      <aside className="hidden md:flex flex-col w-64 bg-slate-900 text-white p-6 sticky top-0 h-screen shrink-0">
         <div className="flex items-center gap-2 mb-10">
           <Activity className="text-teal-400 w-8 h-8" />
-          <h1 className="text-xl font-bold tracking-tight">ICP Assistant</h1>
+          <h1 className="text-xl font-bold tracking-tight text-white">ICP Assistant</h1>
         </div>
         
         <nav className="flex-1 space-y-2">
@@ -33,7 +35,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
               onClick={() => setActiveTab(item.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 activeTab === item.id 
-                ? 'bg-teal-600 text-white' 
+                ? 'bg-teal-600 text-white shadow-lg' 
                 : 'text-slate-400 hover:bg-slate-800 hover:text-white'
               }`}
             >
@@ -44,7 +46,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
         </nav>
 
         <div className="mt-auto pt-6 border-t border-slate-800 text-[10px] text-slate-500">
-          v1.1.0 • Excel Sync Active
+          v1.3.0 • Hand Hygiene Module
         </div>
       </aside>
 
@@ -55,7 +57,7 @@ const Layout: React.FC<LayoutProps> = ({ children, activeTab, setActiveTab }) =>
             key={item.id}
             onClick={() => setActiveTab(item.id)}
             className={`flex flex-col items-center gap-1 p-2 min-w-[70px] rounded-lg ${
-              activeTab === item.id ? 'text-teal-600' : 'text-slate-500'
+              activeTab === item.id ? 'text-teal-600 bg-teal-50/50' : 'text-slate-500'
             }`}
           >
             <item.icon size={18} />

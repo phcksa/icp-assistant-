@@ -1,7 +1,5 @@
 {
   "name": "ICP Rounding Assistant",
   "description": "An AI-powered tool for Infection Control Professionals to parse ICU rounding notes into structured clinical data using Gemini.",
-  "requestFramePermissions": [
-    "microphone"
-  ]
+  "requestFramePermissions": []
 }
