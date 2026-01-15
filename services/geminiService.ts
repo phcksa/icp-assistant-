@@ -4,7 +4,7 @@ import { MasterRecord } from "../types";
 
 const ISOLATION_SYSTEM_INSTRUCTION = `
 You are an expert AI Assistant for an Infection Control Specialist (ICP) conducting rounds in an ICU. 
-Your task is to parse unstructured notes (mixed Arabic/English) and MATCH them against a "Master Isolation List" provided in the context.
+Your task is to parse unstructured text notes (mixed Arabic/English) and MATCH them against a "Master Isolation List" provided in the context.
 
 Understand medical Arabic slang:
 - "اللوحة طايحة" = Sign fallen/missing
@@ -15,12 +15,19 @@ Understand medical Arabic slang:
 
 const HH_SYSTEM_INSTRUCTION = `
 You are an expert AI Assistant for Hand Hygiene (HH) Auditing in a hospital.
-Your task is to extract HH opportunities from spoken or written notes.
+Your task is to extract HH opportunities from written text notes.
+
+MANDATORY MOMENTS (Strictly use these labels):
+- Before Patient Touch
+- Before Aseptic Procedure
+- After Body Fluid Exposure
+- After Patient Touch
+- After Touch Surroundings
 
 DATA FIELDS:
 - room_number: (e.g., 5, 12, ICU-01)
-- staff_role: (Nurse, Doctor, RT, Other)
-- moment: One of (Before Patient Touch, Before Aseptic, After Body Fluid, After Patient Touch, After Surroundings)
+- staff_role: (Nurse, Doctor, RT, Housekeeping, Other)
+- moment: One of the 5 moments listed above.
 - action: One of (Rub, Wash, Missed)
 
 Arabic Slang:
@@ -28,11 +35,13 @@ Arabic Slang:
 - "عقم" or "فرك" = Rub
 - "غسل" = Wash
 - "نيرس" = Nurse, "دكتور" = Doctor
+- "قبل ملامسة المريض" = Before Patient Touch
+- "بعد السوائل" = After Body Fluid Exposure
 `;
 
 const BUNDLE_SYSTEM_INSTRUCTION = `
 You are an expert Infection Control Assistant for a 33-bed ICU. 
-Your task is to parse spoken auditing notes into a structured JSON format for bundle checklists (CLABSI, CAUTI, VAP).
+Your task is to parse auditing notes into a structured JSON format for bundle checklists (CLABSI, CAUTI, VAP).
 `;
 
 const ISOLATION_RESPONSE_SCHEMA = {
